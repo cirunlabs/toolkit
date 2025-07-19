@@ -221,7 +221,7 @@ async function restoreCacheV2(
   // Override UploadOptions to force the use of Azure
   options = {
     ...options,
-    useAzureSdk: true
+    useAzureSdk: false
   }
   restoreKeys = restoreKeys || []
   const keys = [primaryKey, ...restoreKeys]
@@ -478,7 +478,7 @@ async function saveCacheV2(
     ...options,
     uploadChunkSize: 64 * 1024 * 1024, // 64 MiB
     uploadConcurrency: 8, // 8 workers for parallel upload
-    useAzureSdk: true
+    useAzureSdk: false
   }
   const compressionMethod = await utils.getCompressionMethod()
   const twirpClient = cacheTwirpClient.internalCacheTwirpClient()
