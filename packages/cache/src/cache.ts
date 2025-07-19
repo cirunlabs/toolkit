@@ -218,10 +218,11 @@ async function restoreCacheV2(
   options?: DownloadOptions,
   enableCrossOsArchive = false
 ): Promise<string | undefined> {
-  // Override UploadOptions to force the use of Azure
+  // Override UploadOptions to never use Azure due to reduced security
+  // Azure blob client requests lack an authentication header
   options = {
     ...options,
-    useAzureSdk: true
+    useAzureSdk: false
   }
   restoreKeys = restoreKeys || []
   const keys = [primaryKey, ...restoreKeys]
@@ -478,7 +479,7 @@ async function saveCacheV2(
     ...options,
     uploadChunkSize: 64 * 1024 * 1024, // 64 MiB
     uploadConcurrency: 8, // 8 workers for parallel upload
-    useAzureSdk: true
+    useAzureSdk: false // Azure blob client requests lack an authentication header
   }
   const compressionMethod = await utils.getCompressionMethod()
   const twirpClient = cacheTwirpClient.internalCacheTwirpClient()
