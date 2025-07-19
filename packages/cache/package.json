@@ -1,5 +1,5 @@
 {
-  "name": "@cirun/cache",
+  "name": "@cirunlabs/cache",
   "version": "4.0.3",
   "preview": true,
   "description": "Custom Fork of Actions cache lib",
